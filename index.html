@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>InvoiceNet - Invoice Information Extraction</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .logo h1 {
+            color: white;
+            font-size: 3em;
+            margin-bottom: 10px;
+        }
+
+        .logo p {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1.3em;
+        }
+
+        main {
+            background: white;
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .status-banner {
+            background: linear-gradient(135deg, #28a745, #20c997);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .status-banner h2 {
+            margin-bottom: 10px;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .feature-card {
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 12px;
+            border-left: 5px solid #667eea;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .feature-card h3 {
+            font-size: 1.4em;
+            margin-bottom: 15px;
+            color: #333;
+        }
+
+        .feature-card p {
+            margin-bottom: 15px;
+            color: #666;
+        }
+
+        .code {
+            background: #f1f3f4;
+            padding: 10px 15px;
+            border-radius: 6px;
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            font-size: 0.9em;
+            border: 1px solid #e1e5e9;
+            margin: 10px 0;
+        }
+
+        .fields-section {
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+        }
+
+        .fields-section h3 {
+            text-align: center;
+            margin-bottom: 25px;
+            color: #333;
+        }
+
+        .fields-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .field-type {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+        }
+
+        .field-type h4 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .field-type ul {
+            list-style: none;
+        }
+
+        .field-type li {
+            padding: 5px 0;
+            color: #666;
+            position: relative;
+            padding-left: 20px;
+        }
+
+        .field-type li:before {
+            content: "•";
+            color: #667eea;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+
+        .getting-started {
+            background: #e7f3ff;
+            padding: 30px;
+            border-radius: 12px;
+            border-left: 5px solid #007bff;
+        }
+
+        .getting-started h3 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .getting-started ol {
+            margin-left: 20px;
+        }
+
+        .getting-started li {
+            margin: 10px 0;
+            color: #666;
+        }
+
+        footer {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            color: white;
+            text-align: center;
+            padding: 20px;
+            border-radius: 15px;
+            margin-top: 30px;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+            
+            main {
+                padding: 20px;
+            }
+            
+            .logo h1 {
+                font-size: 2.5em;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .fields-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <h1>🧾 InvoiceNet</h1>
+                <p>Deep neural network to extract intelligent information from invoice documents</p>
+            </div>
+        </header>
+
+        <main>
+            <div class="status-banner">
+                <h2>✅ Application Successfully Imported!</h2>
+                <p>InvoiceNet is now running in the Replit environment and ready to use</p>
+            </div>
+
+            <div class="features-grid">
+                <div class="feature-card">
+                    <h3>📄 Invoice Extractor GUI</h3>
+                    <p>Launch the graphical interface for extracting information from invoice documents using pre-trained models.</p>
+                    <div class="code">python extractor.py</div>
+                    <p><em>Opens a Tkinter GUI with PDF viewer and extraction tools</em></p>
+                </div>
+                
+                <div class="feature-card">
+                    <h3>🎯 Model Trainer GUI</h3>
+                    <p>Train custom models on your own invoice dataset with an intuitive interface.</p>
+                    <div class="code">python trainer.py</div>
+                    <p><em>Provides data preparation and model training capabilities</em></p>
+                </div>
+                
+                <div class="feature-card">
+                    <h3>⚡ Command Line Prediction</h3>
+                    <p>Extract information from invoices using the command-line interface.</p>
+                    <div class="code">python predict.py --field total_amount --invoice file.pdf</div>
+                    <p><em>Supports batch processing of multiple invoices</em></p>
+                </div>
+
+                <div class="feature-card">
+                    <h3>🔧 Data Preparation</h3>
+                    <p>Prepare your invoice dataset for training machine learning models.</p>
+                    <div class="code">python prepare_data.py --data_dir train_data/</div>
+                    <p><em>Processes PDFs and creates training datasets with OCR</em></p>
+                </div>
+
+                <div class="feature-card">
+                    <h3>🏋️ Model Training</h3>
+                    <p>Train deep learning models for specific invoice fields.</p>
+                    <div class="code">python train.py --field total_amount --batch_size 8</div>
+                    <p><em>Uses TensorFlow 2.13.1 with CUDA support for acceleration</em></p>
+                </div>
+
+                <div class="feature-card">
+                    <h3>📊 System Status</h3>
+                    <p><strong>Environment:</strong> ✅ Ready<br>
+                    <strong>Python:</strong> ✅ 3.11<br>
+                    <strong>Core Libraries:</strong> ✅ Available<br>
+                    <strong>GUI Support:</strong> ✅ Tkinter</p>
+                </div>
+            </div>
+
+            <div class="fields-section">
+                <h3>🎯 Supported Invoice Fields</h3>
+                <div class="fields-grid">
+                    <div class="field-type">
+                        <h4>General Fields</h4>
+                        <ul>
+                            <li>Vendor Name</li>
+                            <li>Invoice Number</li>
+                            <li>Customer Information</li>
+                            <li>Address Details</li>
+                        </ul>
+                    </div>
+                    <div class="field-type">
+                        <h4>Amount Fields</h4>
+                        <ul>
+                            <li>Total Amount</li>
+                            <li>Tax Amount</li>
+                            <li>Subtotal</li>
+                            <li>Line Item Amounts</li>
+                        </ul>
+                    </div>
+                    <div class="field-type">
+                        <h4>Date Fields</h4>
+                        <ul>
+                            <li>Invoice Date</li>
+                            <li>Due Date</li>
+                            <li>Service Date</li>
+                            <li>Payment Date</li>
+                        </ul>
+                    </div>
+                    <div class="field-type">
+                        <h4>Optional Fields</h4>
+                        <ul>
+                            <li>Tax ID</li>
+                            <li>Purchase Order</li>
+                            <li>Custom Fields</li>
+                            <li>Configurable Data</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="getting-started">
+                <h3>🚀 Getting Started</h3>
+                <ol>
+                    <li><strong>Install Dependencies:</strong> Run <code>pip install -e .</code> to install all required ML libraries</li>
+                    <li><strong>Prepare Data:</strong> Organize your invoices in PDF format with corresponding JSON label files</li>
+                    <li><strong>Choose Your Interface:</strong> Use GUI applications for interactive work or CLI tools for automation</li>
+                    <li><strong>Train Models:</strong> Train custom models on your specific invoice formats and fields</li>
+                    <li><strong>Extract Information:</strong> Use trained models to extract structured data from new invoices</li>
+                </ol>
+                <p><strong>Note:</strong> This project uses TensorFlow 2.13.1 and supports GPU acceleration with CUDA for faster training.</p>
+            </div>
+        </main>
+
+        <footer>
+            <p>InvoiceNet - Open Source Invoice Information Extraction</p>
+            <p>Built with TensorFlow, OpenCV, and deep learning technologies</p>
+        </footer>
+    </div>
+</body>
+</html>
